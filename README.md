@@ -24,5 +24,5 @@ Additionlly packages used in this project are:
 
 
 # 🛠 Development 🛠
-I have currently connected the serverside and it is able to take input through a port and prinr out configuration.
-
+* I have currently connected the serverside and it is able to take input through a port and print out configuration. This has been implemented by http.json and is able to read the port and the temporary webroot provided there. (5/30/2022)
+* I have allowed for the opening of a browser through a hard coded HTML website that simply displays that it has been opened using the server. Command *localhost:8080* is required in order to run through this port. The html is currently present in HttpServer.java in order to hard code but will be moved later. (5/31/2022)
