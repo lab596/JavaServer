@@ -25,4 +25,11 @@ Additionlly packages used in this project are:
 
 # 🛠 Development 🛠
 * I have currently connected the serverside and it is able to take input through a port and print out configuration. This has been implemented by http.json and is able to read the port and the temporary webroot provided there. (5/30/2022)
+---
 * I have allowed for the opening of a browser through a hard coded HTML website that simply displays that it has been opened using the server. Command *localhost:8080* is required in order to run through this port. The html is currently present in HttpServer.java in order to hard code but will be moved later. (5/31/2022)
+
+# 🪲 Bugs 🪲
+* Maven Dependencies
+  - One bug I kept running into was the dependencies in *pom.xml* would sometimes not find the groupid or artifactid I wanted to add. This resulted in a repetitive red coloration of the code simply saying it was unable to locate dependency. Despite my efforts to get the dependency from the [MVNrepo website](https://mvnrepository.com/) I continued to encounter this problem.
+  - **Solution**: The only way I could solve this problem was by refreshing or cleaning the *pom.xml* file. One easy way to do this is *intellij* is by:
+      - left clicking *pom.xml* --> hovering over "Maven" (second to last option for me) --> clicking "Reload project" (first option for me)
