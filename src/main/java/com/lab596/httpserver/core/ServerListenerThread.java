@@ -1,5 +1,8 @@
 package com.lab596.httpserver.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -7,6 +10,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ServerListenerThread extends Thread {
+    private final static Logger LOGGER = LoggerFactory.getLogger(ServerListenerThread.class);
 
     private int port;
     private String webroot;
@@ -25,29 +29,34 @@ public class ServerListenerThread extends Thread {
         try {
             //allows connection through port
             //ServerSocket serverSocket = new ServerSocket(conf.getPort());
-            Socket socket = serverSocket.accept();
+            //allows for socket to keep receiving inputs
+            while (serverSocket.isBound() && !(serverSocket.isClosed())) {
+                Socket socket = serverSocket.accept();
 
-            InputStream inputStream = socket.getInputStream();
-            OutputStream outputStream = socket.getOutputStream();
+                LOGGER.info(" * Connection accepted: " + socket.getInetAddress());
 
-            //simple html test
-            String html = "<html><head><title>Simple Java HTTP Server </title></head><h1>This page was served using Simple Java HTTP Server</h1><body></body></html>";
+                InputStream inputStream = socket.getInputStream();
+                OutputStream outputStream = socket.getOutputStream();
 
-            final String CRLF = "\n\r"; //13,10
+                //simple html test
+                String html = "<html><head><title>Simple Java HTTP Server </title></head><h1>This page was served using Simple Java HTTP Server</h1><body></body></html>";
 
-            //required to read the HTML
-            String response =
-                    "HTTP/11.1 200 OK" + CRLF + //Status Line : HTTP VERSION RESPONSE_CODE RESPONSE_MESSAGE
-                            "Content-Length: " + html.getBytes().length + CRLF +
-                            CRLF +
-                            html +
-                            CRLF + CRLF;
-            //outputting what is read
-            outputStream.write(response.getBytes());
-            inputStream.close();
-            outputStream.close();
-            socket.close();
-            serverSocket.close();
+                final String CRLF = "\n\r"; //13,10
+
+                //required to read the HTML
+                String response =
+                        "HTTP/11.1 200 OK" + CRLF + //Status Line : HTTP VERSION RESPONSE_CODE RESPONSE_MESSAGE
+                                "Content-Length: " + html.getBytes().length + CRLF +
+                                CRLF +
+                                html +
+                                CRLF + CRLF;
+                //outputting what is read
+                outputStream.write(response.getBytes());
+                inputStream.close();
+                outputStream.close();
+                socket.close();
+            }
+            //serverSocket.close(); //TODO close socket
         } catch (IOException e) {
             e.printStackTrace();
         }
