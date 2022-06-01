@@ -4,8 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -35,6 +33,10 @@ public class ServerListenerThread extends Thread {
 
                 LOGGER.info(" * Connection accepted: " + socket.getInetAddress());
 
+                HttpConnectionWorkerThread workerThread = new HttpConnectionWorkerThread(socket);
+                workerThread.start();
+
+                /*
                 InputStream inputStream = socket.getInputStream();
                 OutputStream outputStream = socket.getOutputStream();
 
@@ -55,10 +57,24 @@ public class ServerListenerThread extends Thread {
                 inputStream.close();
                 outputStream.close();
                 socket.close();
+
+                try{
+                    sleep(5000);
+                } catch(InterruptedException e){
+                    e.printStackTrace();
+                }
+            */
             }
-            //serverSocket.close(); //TODO close socket
+            //serverSocket.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("Problem with setting socket", e);
+        } finally {
+            if (serverSocket != null) {
+                try {
+                    serverSocket.close();
+                } catch (IOException e) {
+                }
+            }
         }
 
     }
