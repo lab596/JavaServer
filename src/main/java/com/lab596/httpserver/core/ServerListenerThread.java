@@ -1,42 +1,27 @@
-package com.lab596.httpserver;
-
-
-/*
- *Read Configuration Files
- *Server must listen to a port // multithreaded?
- * Read request messages
- * Open and read files from the Filesystem
- * Write response Messages
- */
-
-import com.lab596.httpserver.config.Configuration;
-import com.lab596.httpserver.config.ConfigurationManager;
-import com.lab596.httpserver.core.ServerListenerThread;
+package com.lab596.httpserver.core;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
 
-//Driver class for the server
-public class HttpServer {
+public class ServerListenerThread extends Thread {
 
-    public static void main(String[] args) {
+    private int port;
+    private String webroot;
+    private ServerSocket serverSocket;
 
-        System.out.println("Server starting...");
+    //constructor to open thread
+    public ServerListenerThread(int port, String webroot) throws IOException {
+        this.port = port;
+        this.webroot = webroot;
+        this.serverSocket = new ServerSocket(this.port);
+    }
 
-        ConfigurationManager.getInstance().loadConfigurationFile("src/main/resources/http.json");
-        Configuration conf = ConfigurationManager.getInstance().getCurrentConfiguration();
-        //testing configuration
-        System.out.println("Using Port: " + conf.getPort());
-        System.out.println("Using Webroot: " + conf.getWebroot());
+    @Override
+    public void run() {
 
-        ServerListenerThread serverListenerThread = null;
-        try {
-            serverListenerThread = new ServerListenerThread(conf.getPort(), conf.getWebroot());
-            serverListenerThread.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        /*
         try {
             //allows connection through port
             //ServerSocket serverSocket = new ServerSocket(conf.getPort());
@@ -66,7 +51,6 @@ public class HttpServer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        */
 
     }
 }
