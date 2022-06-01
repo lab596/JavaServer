@@ -27,6 +27,8 @@ Additionlly packages used in this project are:
 * I have currently connected the serverside and it is able to take input through a port and print out configuration. This has been implemented by http.json and is able to read the port and the temporary webroot provided there. (5/30/2022)
 ---
 * I have allowed for the opening of a browser through a hard coded HTML website that simply displays that it has been opened using the server. Command *localhost:8080* is required in order to run through this port. The html is currently present in HttpServer.java in order to hard code but will be moved later. (5/31/2022)
+---
+* I have allowed for multithreading using the server by allowing for multiple connections to keep the port and server open. This keeps the program running in order to allow for multiple connections with the use of seperate computer threads. (6/1/2022)
 
 # 🪲 Bugs 🪲
 * Maven Dependencies
