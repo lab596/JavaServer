@@ -17,7 +17,7 @@ Currently most commits are lead by a tutorial by 🎬@CoderFromScratch🎬 and h
 
 Additionlly packages used in this project are:
 * Maven
-   - *Tool that helps configure Java projects. It helps take care of files and allows the opening of the files required at it own command.* [Click here for more Info](https://www.simplilearn.com/tutorials/maven-tutorial/what-is-maven)
+   - *Tool that helps configure Java projects. It helps take care of files and helps work through the dependencies required for the project.* [Click here for more Info](https://www.simplilearn.com/tutorials/maven-tutorial/what-is-maven)
 
 * Json 
    - *Javascript Object Notation. Manages client server relations and allows direct transfer of objects through server and client.* [Click here for more Info](https://www.youtube.com/watch?v=JuFdz8f-cT4)
@@ -29,9 +29,11 @@ Additionlly packages used in this project are:
 * I have allowed for the opening of a browser through a hard coded HTML website that simply displays that it has been opened using the server. Command *localhost:8080* is required in order to run through this port. The html is currently present in HttpServer.java in order to hard code but will be moved later. (5/31/2022)
 ---
 * I have allowed for multithreading using the server by allowing for multiple connections to keep the port and server open. This keeps the program running in order to allow for multiple connections with the use of seperate computer threads. (6/1/2022)
+---
+* Started to develop a parser to read a legitimate input stream as opposed to the hardcoded website currently displayed. Must refrence official [RFC](https://datatracker.ietf.org/doc/html/rfc7230) to see where parsing information is provided and in what order. (6/2/2022)
 
 # 🪲 Bugs 🪲
 * Maven Dependencies
   - One bug I kept running into was the dependencies in *pom.xml* would sometimes not find the groupid or artifactid I wanted to add. This resulted in a repetitive red coloration of the code simply saying it was unable to locate dependency. Despite my efforts to get the dependency from the [MVNrepo website](https://mvnrepository.com/) I continued to encounter this problem.
-  - **Solution**: The only way I could solve this problem was by refreshing or cleaning the *pom.xml* file. One easy way to do this is *intellij* is by:
+  - **Solution**: The only way I could solve this problem was by refreshing or cleaning the *pom.xml* file. One easy way to do this in *intellij* is by:
       - left clicking *pom.xml* --> hovering over "Maven" (second to last option for me) --> clicking "Reload project" (first option for me)
