@@ -24,7 +24,7 @@ public class HttpConnectionWorkerThread extends Thread {
             inputStream = socket.getInputStream();
             outputStream = socket.getOutputStream();
 
-            //simple html test
+             //simple html test
             String html = "<html><head><title>Simple Java HTTP Server </title></head><h1>This page was served using Simple Java HTTP Server</h1><body></body></html>";
 
             final String CRLF = "\n\r"; //13,10
