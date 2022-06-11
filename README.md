@@ -31,6 +31,8 @@ Additionlly packages used in this project are:
 * I have allowed for multithreading using the server by allowing for multiple connections to keep the port and server open. This keeps the program running in order to allow for multiple connections with the use of seperate computer threads. (6/1/2022)
 ---
 * Started to develop a parser to read a legitimate input stream as opposed to the hardcoded website currently displayed. Must refrence official [RFC](https://datatracker.ietf.org/doc/html/rfc7230) to see where parsing information is provided and in what order. (6/2/2022)
+---
+* Started workeing on readers that allow for the grabing of the link in order to open a website. Also refrenced client and server errors and developed error messgaes to display in case any error took place. (6/11/22)
 
 # 🪲 Bugs 🪲
 * Maven Dependencies
