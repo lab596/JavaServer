@@ -8,6 +8,9 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class HttpParserTest {
 
@@ -20,12 +23,31 @@ class HttpParserTest {
 
     @Test
     void parseHTTpRequest() {
-        httpParser.parseHTTpRequest(
-                generateValidTestCase()
-        );
+        HttpRequest request = null;
+        try {
+            request = httpParser.parseHTTpRequest(
+                    generateValidGETTestCase()
+            );
+        } catch (HttpParsingException e) {
+            fail(e);
+        }
+
+        assertEquals(request.getMethod(), HttpMethod.GET);
     }
 
-    private InputStream generateValidTestCase() {
+    void parseHTTpRequestBadMethod() {
+        try {
+            HttpRequest request = httpParser.parseHTTpRequest(
+                    generateBadTestCaseMethod()
+            );
+            fail();
+        } catch (HttpParsingException e) {
+            assertEquals(e.getErrorCode(), HttpStatusCodes.SERVER_ERROR_501_NOT_IMPLEMENTED);
+        }
+
+    }
+
+    private InputStream generateValidGETTestCase() {
         String rawData = "GET / HTTP/1.1\r\r\n" +
                 "Host: localhost:8080\r\n" +
                 "Connection: keep-alive\r\n" +
@@ -51,4 +73,20 @@ class HttpParserTest {
 
         return inputStream;
     }
+
+    private InputStream generateBadTestCaseMethod() {
+        String rawData = "GET / HTTP/1.1\r\r\n" +
+                "Host: localhost:8080\r\n" +
+                "Accept-Language: en-US,en;q=0.9\r\n" +
+                "\r\n";
+
+        InputStream inputStream = new ByteArrayInputStream(
+                rawData.getBytes(StandardCharsets.US_ASCII
+                )
+        );
+
+        return inputStream;
+    }
+
+
 }
